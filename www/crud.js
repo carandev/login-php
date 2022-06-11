@@ -34,9 +34,10 @@ let app = new Vue({
     },
     editUser: async function(){
       const response = await axios({
-        method: 'PUT',
+        method: 'POST',
         url: '/crud.php',
-        data: {id: this.idUser, username: this.username}
+        data: {id: this.idUser, username: this.username},
+        responseType: 'json'
       })
 
 

@@ -33,7 +33,7 @@ if($_SERVER["REQUEST_METHOD"] == "GET"){
 
     echo json_encode($data);
   }
-} elseif ($_SERVER["REQUEST_METHOD"] == "PUT"){
+} elseif ($_SERVER["REQUEST_METHOD"] == "POST"){
   $userData = json_decode(file_get_contents('php://input'), true);
   $sql = "UPDATE users SET `username` = :username WHERE `id` = :id";
 
@@ -42,7 +42,7 @@ if($_SERVER["REQUEST_METHOD"] == "GET"){
   $query -> bindParam(':username', $username, PDO::PARAM_STR);
   $query -> bindParam(':id', $id, PDO::PARAM_INT);
   $id = $userData['id'];
-  $username = trim($userData['username']);
+  $username = $userData['username'];
 
   $query -> execute();
 

@@ -19,11 +19,13 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
 	</head>
 	<body>
         <main id="app" class="container">
-		    <h1>Estos son los usuarios inscritos <?php echo htmlspecialchars($_SESSION["username"]); ?></h1>
+		    <h1 class="text-center">Usuarios inscritos</h1>
 		       
-            <a class="btn btn-success mb-2" href="register.php">Agregar usuarios</a>
-            <button class="btn btn-dark" @click="generatePdf">Exportar a PDF</button>
-            <button class="btn btn-primary" @click="generateXls">Exportar a Excel</button>
+            <div class="d-flex justify-content-between mb-2" style="width: 100%">
+                <a class="btn btn-success mb-2" href="register.php">Agregar usuarios</a>
+                <button class="btn btn-dark" @click="generatePdf">Exportar a PDF</button>
+                <button class="btn btn-primary" @click="generateXls">Exportar a Excel</button>
+            </div>
             <table class="table table-dark" id="table">
               <thead class="thead-dark">
                 <tr>
