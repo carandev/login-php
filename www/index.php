@@ -26,7 +26,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
                 <button class="btn btn-dark" @click="generatePdf">Exportar a PDF</button>
                 <button class="btn btn-primary" @click="generateXls">Exportar a Excel</button>
             </div>
-            <table class="table table-dark" id="table">
+            <table class="table" id="table">
               <thead class="thead-dark">
                 <tr>
                   <th scope="col">#</th>
@@ -51,8 +51,8 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
               </tbody>
             </table>
             <p>
-			    <a href="logout.php">Cerrar sesión</a><br>
-			    <a href="reset-password.php" >Cambiar contraseña</a>
+			    <a class="btn btn-info m-1" href="logout.php">Cerrar sesión</a><br>
+			    <a class="btn btn-info m-1" href="reset-password.php" >Cambiar contraseña</a>
 		    </p>
         </main>
     <script src="https://github.com/m0rtadelo/to-excel/releases/latest/download/to-excel.js"></script>
