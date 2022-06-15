@@ -15,7 +15,22 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
 	<head>
 		<meta charset="UTF-8">
 		<title>Bienvenido</title>  
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <!-- Font Awesome -->
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <!-- Google Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
+      rel="stylesheet"
+    />
+    <!-- MDB -->
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/4.2.0/mdb.min.css"
+      rel="stylesheet"
+    />
 	</head>
 	<body>
         <main id="app" class="container">
@@ -29,30 +44,59 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
             <table class="table" id="table">
               <thead class="thead-dark">
                 <tr>
-                  <th scope="col">#</th>
-                  <th scope="col">Username</th>
-                  <th scope="col">Password</th>
+                  <th scope="col">ID</th>
+                  <th scope="col">Usuario</th>
+                  <th scope="col">Nombre</th>
+                  <th scope="col">Contraseña</th>
+                  <th scope="col">Acciones</th>
                 </tr>
               </thead>
               <tbody>
                 <tr v-for="user in users" :key="user.id" class="table-primary">
                   <th scope="row">{{user.id}}</th>
                   <td>{{user.username}}</td>
+                  <td>{{user.name}}</td>
                   <td>{{user.password}}</td>
-                  <td><button class="btn btn-danger" @click="deleteUser(user.id)">Eliminar</button></td>
-                  <td><button class="btn btn-info" @click="showModal">Editar</button></td>
-                  <section v-if="show">
-                    <form>
-                        <input type="text" placeholder="username" v-model="username"/>
-                        <button class="btn btn-info" @click="editUser">Aceptar</button>
-                    </form>
-                  </section>
+                  <td>
+                    <button class="btn btn-danger" @click="deleteUser(user.id)">Eliminar</button>
+                    <button @click="showModal(user.id)" type="button" class="btn btn-info" data-mdb-toggle="modal" data-mdb-target="#exampleModal">
+                      Editar
+                    </button>
+                  </td>
+
+                  <!-- Modal -->
+                  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                          <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+
+                          <div class="form-outline mb-4">
+                            <input type="text" id="form3Example3" class="form-control form-control-lg"
+                                   placeholder="Ingresa el nombre" v-model="user.name" />
+                            <label class="form-label" for="form3Example3">Nombre</label>
+                          </div>
+
+                          <div class="form-outline mb-4">
+                            <input type="text" id="form3Example3" class="form-control form-control-lg"
+                                   placeholder="Ingresa el usuario" v-model="user.username" />
+                            <label class="form-label" for="form3Example3">Usuario</label>
+                          </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">Cerrar</button>
+                          <button type="button" @click.prevent="editUser" class="btn btn-primary">Editar</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </tr>
               </tbody>
             </table>
             <p>
 			    <a class="btn btn-info m-1" href="logout.php">Cerrar sesión</a><br>
-			    <a class="btn btn-info m-1" href="reset-password.php" >Cambiar contraseña</a>
 		    </p>
         </main>
     <script src="https://github.com/m0rtadelo/to-excel/releases/latest/download/to-excel.js"></script>
@@ -61,5 +105,10 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
 	<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script> 
     <script src="crud.js"></script>
+        <!-- MDB -->
+        <script
+          type="text/javascript"
+          src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/4.2.0/mdb.min.js"
+        ></script>
 	</body>
 </html>

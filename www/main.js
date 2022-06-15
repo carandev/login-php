@@ -2,6 +2,7 @@ var app = new Vue({
   el: '#app',
   data: {
     user: {
+      name: '',
       username: '',
       password: '',
       confirm_password: ''

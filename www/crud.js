@@ -1,7 +1,11 @@
 let app = new Vue({
   el: '#app',
   data: {
-    username: '',
+    user: {
+      id: '',
+      name: '',
+      username: '',
+    },
     userId: '',
     users: [],
     error: '',
@@ -36,22 +40,18 @@ let app = new Vue({
       const response = await axios({
         method: 'POST',
         url: '/crud.php',
-        data: {id: this.idUser, username: this.username},
+        data: this.user,
         responseType: 'json'
       })
 
 
-      if (response.data.error){
-        console.log(response)
-      } else {
-        this.show = false;
-        this.fetchUsers();
-      }
+      window.location = 'index.php'
+      this.user = {};
     },
 
     showModal: function(id){
-      this.show = true;
-      this.idUser = id;
+      const userIndex = this.users.findIndex(eachUser => eachUser.id === id);
+      this.user = this.users[userIndex];
     },
 
     generatePdf: function(){
@@ -60,11 +60,11 @@ let app = new Vue({
       doc.setFont("helvetica", "bold");
       doc.setFontSize(12);
       doc.text("Usuarios", 100, 10)
-      doc.text("Username               Password", 1, 20)
+      doc.text("Username      Name         Password", 1, 20)
 
       doc.setFont("helvetica", "normal");
       this.users.forEach(user => {
-        doc.text(`${user.username}                   ${user.password}`, 1, i);
+        doc.text(`${user.username}       ${user.name}            ${user.password}`, 1, i);
         i += 10;
       })
 

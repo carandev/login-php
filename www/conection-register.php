@@ -7,6 +7,7 @@ require_once "config.php";
 $_POST = json_decode(file_get_contents('php://input'), true);
 
 $username = $_POST['username'];
+$name = $_POST['name'];
 $password = $_POST['password'];
 $confirm_password = $_POST['confirm_password'];
 
@@ -18,7 +19,11 @@ $data['message'] = 'Login exitoso';
 // Procesamiento de datos del formulario cuando se envía el formulario
 if($_SERVER["REQUEST_METHOD"] == "POST"){
  
-    if (empty(trim($_POST["username"])) || empty(trim($_POST["password"])) || empty(trim($_POST["confirm_password"]))){
+    if (empty(trim($_POST["username"])) ||
+      empty(trim($_POST["password"])) ||
+      empty(trim($_POST["confirm_password"])) ||
+      empty(trim($_POST["name"]))
+    ){
         $data['error'] = true;
         $data['message'] = 'Debes llenar todos los campos';
         echo json_encode($data);
@@ -72,16 +77,17 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         if(empty($username_err) && empty($password_err) && empty($confirm_password_err)){
             
             // Prepare una declaración de inserción
-            $sql = "INSERT INTO users (username, password) VALUES (?, ?)";
+            $sql = "INSERT INTO users (username, name, password) VALUES (?, ?, ?)";
              
             if($stmt = mysqli_prepare($link, $sql)){
                 // Vincular variables a la declaración preparada como parámetros
-                mysqli_stmt_bind_param($stmt, "ss", $param_username, $param_password);
+                mysqli_stmt_bind_param($stmt, "sss", $param_username,$param_name, $param_password);
                 
                 // Establecer parámetros
                 $param_username = $username;
-			    $param_password = password_hash($password, PASSWORD_DEFAULT); // Crear una contraseña hash
-                
+                $param_password = password_hash($password, PASSWORD_DEFAULT); // Crear una contraseña hash
+                $param_name = $name;
+
                 // Intentar ejecutar la declaración preparada
                 if(mysqli_stmt_execute($stmt)){
                     echo json_encode($data);

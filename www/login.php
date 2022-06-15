@@ -15,27 +15,101 @@ if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
 	<head>
 		<meta charset="UTF-8">
 		<title>Inicio de sesión</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <!-- Font Awesome -->
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <!-- Google Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
+      rel="stylesheet"
+    />
+    <!-- MDB -->
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/4.2.0/mdb.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      .divider:after,
+      .divider:before {
+        content: "";
+        flex: 1;
+        height: 1px;
+        background: #eee;
+      }
+      .h-custom {
+        height: calc(100% - 73px);
+      }
+      @media (max-width: 450px) {
+        .h-custom {
+          height: 100%;
+        }
+      }
+    </style>
 	</head>
-<body class="container bg-dark d-flex justify-content-center align-items-center" style="height: 100vh">
-    <div id="app" class="text-white bg-secondary p-5" style="width: 400px">
-      <h2 class="text-center">Inicio de sesión</h2>
-      <p>Por favor, introduzca usuario y contraseña para iniciar sesión.</p>
-      <form class="gap-1">
-        <label>Usuario</label>
-        <input class="m-1 input-group-text" type="text" name="username" v-model="user.username">
-           
-        <label>Contraseña</label>
-        <input class="input-group-text" type="password" name="password" v-model="user.password">
-    
-        <button @click.prevent="login" class="btn btn-success m-2">Ingresar</button>
-        <p>¿No tienes una cuenta? <a class="btn btn-info" href="register.php">Regístrate ahora</a></p>
-      </form>
-      <div v-if="error !== ''" class="bg-danger p-3">{{error}}</div>
+<body>
+<section class="vh-100" id="app">
+  <div class="container-fluid h-custom">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col-md-9 col-lg-6 col-xl-5">
+        <img src="./img/login.svg"
+             class="img-fluid" alt="Sample image">
+      </div>
+      <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
+        <form>
+
+          <!-- Email input -->
+          <div class="form-outline mb-4">
+            <input type="text" id="form3Example3" class="form-control form-control-lg"
+                   placeholder="Ingresa el usuario" v-model="user.username" />
+            <label class="form-label" for="form3Example3">Usuario</label>
+          </div>
+
+          <!-- Password input -->
+          <div class="form-outline mb-3">
+            <input type="password" id="form3Example4" class="form-control form-control-lg"
+                   placeholder="Ingresa la contraseña" v-model="user.password" />
+            <label class="form-label" for="form3Example4">Contraseña</label>
+          </div>
+
+          <div class="text-center text-lg-start mt-4 pt-2">
+            <button type="button" class="btn btn-primary btn-lg"
+                    style="padding-left: 2.5rem; padding-right: 2.5rem;"
+                    @click.prevent="login">Iniciar Sesión</button>
+            <p class="small fw-bold mt-2 pt-1 mb-0">¿No tienes una cuenta? <a href="./register.php"
+                                                                              class="link-danger">Regístrate</a></p>
+          </div>
+
+        </form>
+      </div>
     </div>
-    
+  </div>
+  <div
+    class="d-flex flex-column flex-md-row text-center text-md-start justify-content-between py-4 px-4 px-xl-5 bg-primary">
+    <!-- Copyright -->
+    <div class="text-white mb-3 mb-md-0">
+      Copyright © 2022. All rights reserved.
+    </div>
+    <!-- Copyright -->
+
+    <!-- Right -->
+    <div>
+      <a href="https://twitter.com/carandev" class="text-white me-4">
+        <i class="fab fa-twitter"></i>
+      </a>
+    </div>
+    <!-- Right -->
+  </div>
+</section>
+
 		<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script> 
     <script src="main.js"></script>
+    <!-- MDB -->
+    <script
+      type="text/javascript"
+      src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/4.2.0/mdb.min.js"
+    ></script>
 </body>
 </html>

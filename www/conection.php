@@ -46,7 +46,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         // Validar información del usuario
         if(empty($username_err) && empty($password_err)){
             // Preparar la consulta select
-            $sql = "SELECT id, username, password FROM users WHERE username = ?";
+            $sql = "SELECT id, name, username, password FROM users WHERE username = ?";
             
             if($stmt = mysqli_prepare($link, $sql)){
                 /* Vincular variables a la declaración preparada como parámetros, s es por la
@@ -65,7 +65,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 				    verificar la contraseña*/
                     if(mysqli_stmt_num_rows($stmt) == 1){                    
                         // Vincular las variables del resultado
-                        mysqli_stmt_bind_result($stmt, $id, $username, $hashed_password);
+                        mysqli_stmt_bind_result($stmt, $id, $username, $name,  $hashed_password);
 					    //obtener los valores de la consulta
                         if(mysqli_stmt_fetch($stmt)){
 						    /*comprueba que la contraseña ingresada sea igual a la 

@@ -35,14 +35,22 @@ if($_SERVER["REQUEST_METHOD"] == "GET"){
   }
 } elseif ($_SERVER["REQUEST_METHOD"] == "POST"){
   $userData = json_decode(file_get_contents('php://input'), true);
-  $sql = "UPDATE users SET `username` = :username WHERE `id` = :id";
+  $sql = "UPDATE users SET `username` = :username, `name` = :name, `password` = :password WHERE `id` = :id";
 
   $query = $connect -> prepare($sql);
 
   $query -> bindParam(':username', $username, PDO::PARAM_STR);
+  $query -> bindParam(':name', $name, PDO::PARAM_STR);
+  $query -> bindParam(':password', $password, PDO::PARAM_STR);
   $query -> bindParam(':id', $id, PDO::PARAM_INT);
   $id = $userData['id'];
   $username = $userData['username'];
+  $name = $userData['name'];
+  if (password_needs_rehash($userData['password'], PASSWORD_DEFAULT)) {
+        $password = password_hash($userData['password'], PASSWORD_DEFAULT);
+  } else {
+    $password = $userData['password'];
+  }
 
   $query -> execute();
 
