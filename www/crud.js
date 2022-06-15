@@ -74,8 +74,9 @@ let app = new Vue({
     generateXls: function(){
       let headers = [
           { label: 'ID', field: 'id' },
-          { label: 'Username', field: 'username' },
-          { label: 'Password', field: 'password' },
+          { label: 'Nombre', field: 'name' },
+          { label: 'Usuario', field: 'username' },
+          { label: 'Contraseña', field: 'password' },
       ];
 
       content = toExcel.exportXLS( headers, this.users, 'users' );
